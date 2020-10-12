@@ -787,6 +787,8 @@ function checkKey(e,justPressed) {
 
 
 function update() {
+    let draw = false;
+
     timer+=deltatime;
     input_throttle_timer+=deltatime;
     if (quittingTitleScreen) {
@@ -798,7 +800,7 @@ function update() {
     if (againing) {
         if (timer>againinterval&&messagetext.length==0) {
             if (processInput(-1)) {
-                redraw();
+                draw = true;
                 keyRepeatTimer=0;
                 autotick=0;
             }
@@ -844,9 +846,13 @@ function update() {
             autotick=0;
             pushInput("tick");
             if (processInput(-1)) {
-                redraw();
+                draw = true;
             }
         }
+    }
+
+    if (draw || (state !== undefined && state.metadata.smoothscreen !== undefined)) {
+      redraw();
     }
 }
 
