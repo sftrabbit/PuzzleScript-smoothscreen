@@ -780,13 +780,11 @@ function setGameState(_state, command, randomseed) {
 		}
 	}
 
-	initSmoothCamera();
-
 	if(command[0] !== "rebuild") {
 		clearInputHistory();
 	}
+	initSmoothCamera();
 	canvasResize();
-
 
 	if (state.sounds.length==0&&state.metadata.youtube==null){
 		killAudioButton();
@@ -2731,9 +2729,9 @@ function nextLevel() {
 	if (state!==undefined && state.metadata.flickscreen!==undefined){
 		oldflickscreendat=[0,0,Math.min(state.metadata.flickscreen[0],level.width),Math.min(state.metadata.flickscreen[1],level.height)];
 	}
+	initSmoothCamera();
 	canvasResize();	
 	clearInputHistory();
-	initSmoothCamera();
 }
 
 function goToTitleScreen(){
