@@ -2,6 +2,8 @@
 
 This PuzzleScript fork adds a new prelude option, `smoothscreen`, which zooms the camera in on a region around the player and smoothly scrolls the camera as the player moves around.
 
+<a href="https://sftrabbit.github.io/PuzzleScript-smoothscreen/">Use the fork.</a>
+
 <img src="images/smoothscreen/demo.gif" height="150"> <img src="images/smoothscreen/pulley.gif" height="150"> <img src="images/smoothscreen/skippingstones.gif" height="150">
 
 <sup>Second and third images are Draknek's [You're Pulleying My Leg](https://www.draknek.org/games/puzzlescript/pulleys.php) and [Skipping Stones to Lonely Homes](https://www.draknek.org/games/puzzlescript/skipping-stones.php) with `smoothscreen` added.</sup>
