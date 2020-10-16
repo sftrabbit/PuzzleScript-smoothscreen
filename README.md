@@ -51,3 +51,5 @@ smoothscreen flick 9x7 3x3
 ```
 
 <img src="images/smoothscreen/flickboundary.gif" height="200">
+
+One subtle difference between this `flick` keyword and `flickscreen` is that this one won't let the camera show anything out of bounds of the level. So if the camera doesn't quite cover the entire level, you might need to pad out the level to fit the next camera position.
