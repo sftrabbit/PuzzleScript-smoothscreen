@@ -787,7 +787,7 @@ function checkKey(e,justPressed) {
 
 
 function update() {
-    let draw = false;
+    var draw = false;
 
     timer+=deltatime;
     input_throttle_timer+=deltatime;
