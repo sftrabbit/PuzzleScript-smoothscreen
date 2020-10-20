@@ -443,6 +443,8 @@ function loadLevelFromLevelDat(state,leveldat,randomseed) {
 	        }
         }
 
+	    initSmoothCamera();
+
 	    backups=[]
 	    restartTarget=backupLevel();
 		keybuffer=[];
@@ -473,7 +475,7 @@ function loadLevelFromStateTarget(state,levelindex,target,randomseed) {
 		}
     }
     loadLevelFromLevelDat(state,state.levels[levelindex],randomseed);
-    restoreLevel(target);
+    restoreLevel(target, true);
     restartTarget=target;
 }
 
@@ -576,7 +578,8 @@ function backupLevel() {
 		dat : new Int32Array(level.objects),
 		width : level.width,
 		height : level.height,
-		oldflickscreendat: oldflickscreendat.concat([])
+		oldflickscreendat: oldflickscreendat.concat([]),
+    cameraPositionTarget: Object.assign({}, cameraPositionTarget)
 	};
 	return ret;
 }
@@ -586,7 +589,8 @@ function level4Serialization() {
 		dat : Array.from(level.objects),
 		width : level.width,
 		height : level.height,
-		oldflickscreendat: oldflickscreendat.concat([])
+		oldflickscreendat: oldflickscreendat.concat([]),
+    cameraPositionTarget: Object.assign({}, cameraPositionTarget)
 	};
 	return ret;
 }
@@ -783,7 +787,6 @@ function setGameState(_state, command, randomseed) {
 	if(command[0] !== "rebuild") {
 		clearInputHistory();
 	}
-	initSmoothCamera();
 	canvasResize();
 
 	if (state.sounds.length==0&&state.metadata.youtube==null){
@@ -836,7 +839,7 @@ function RebuildLevelArrays() {
 }
 
 var messagetext="";
-function restoreLevel(lev) {
+function restoreLevel(lev, snapCamera) {
 	oldflickscreendat=lev.oldflickscreendat.concat([]);
 
 	level.objects = new Int32Array(lev.dat);
@@ -868,6 +871,14 @@ function restoreLevel(lev) {
 	    }
 	}
 
+    if (lev.cameraPositionTarget) {
+      cameraPositionTarget = Object.assign({}, lev.cameraPositionTarget);
+
+      if (snapCamera) {
+        cameraPosition = Object.assign({}, cameraPositionTarget)
+      }
+    }
+
     againing=false;
     level.commandQueue=[];
     level.commandQueueSourceRules=[];
@@ -895,14 +906,12 @@ function DoRestart(force) {
 		consolePrint("--- restarting ---",true);
 	}
 
-	restoreLevel(restartTarget);
+	restoreLevel(restartTarget, true);
 	tryPlayRestartSound();
 
 	if ('run_rules_on_level_start' in state.metadata) {
     	processInput(-1,true);
 	}
-	
-	initSmoothCamera();
 	
 	level.commandQueue=[];
 	level.commandQueueSourceRules=[];
@@ -2432,6 +2441,7 @@ function processInput(dir,dontDoWin,dontModify) {
 	    				backups.push(bak);
 	    			}
 	    			modified=true;
+	    			updateCameraPositionTarget();
 	    		}
 	    		break;
 	    	}
@@ -2729,7 +2739,7 @@ function nextLevel() {
 	if (state!==undefined && state.metadata.flickscreen!==undefined){
 		oldflickscreendat=[0,0,Math.min(state.metadata.flickscreen[0],level.width),Math.min(state.metadata.flickscreen[1],level.height)];
 	}
-	initSmoothCamera();
+
 	canvasResize();	
 	clearInputHistory();
 }
