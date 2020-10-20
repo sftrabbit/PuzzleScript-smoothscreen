@@ -548,6 +548,5 @@ function canvasResize() {
     oldtextmode=textMode;
     oldfgcolor=state.fgcolor;
 
-    initSmoothCamera();
     redraw();
 }
