@@ -36,7 +36,8 @@
             ["throttle_movement", "", "For use in conjunction with realtime_interval - this stops you from moving crazy fast - repeated keypresses of the same movement direction will not increase your speed. This doesn't apply to the action button."],
             ["verbose_logging", "", "As you play the game, spits out information about all rules applied as you play"],
             ["zoomscreen", "WxH", "Zooms the camera in to a WxH section of the map around the player, centered on the player."],
-            ["smoothscreen", "[flick] WxH [IxJ] [S]", "Zooms the camera in to a WxH section of the map around the player and smoothly scrolls to follow the player. The optional argument IxJ (default: 1x1) specifies a boundary in which the player can move without moving the camera. The optional speed argument (default: 0.125) specifies how far the camera will move towards the player each frame as a fraction of the distance to the player. The optional flick keyword makes the camera move like flickscreen."]
+            ["smoothscreen", "[flick] WxH [IxJ] [S]", "Zooms the camera in to a WxH section of the map around the player and smoothly scrolls to follow the player. The optional argument IxJ (default: 1x1) specifies a boundary in which the player can move without moving the camera. The optional speed argument (default: 0.125) specifies how far the camera will move towards the player each frame as a fraction of the distance to the player. The optional flick keyword makes the camera move like flickscreen."],
+            ["smoothscreen_debug", "", "Draw smoothscreen debug information."]
         ];
 
         var COLOR_WORDS = [
